@@ -1,4 +1,4 @@
-## CheckVersionLib
+## CheckVersionLib [![](https://jitpack.io/v/Blankyn/CheckVersionLib.svg)](https://jitpack.io/#Blankyn/CheckVersionLib)
 ## 功能强大，链式编程，调用简单，集成轻松，扩展性强大
 
 ### 效果
@@ -36,7 +36,7 @@ allprojects {
 #### jitpack && android x
 ```
 dependencies {
-     implementation 'com.github.AlexLiuSheng:CheckVersionLib:1.0.0_androidx'
+     implementation 'com.github.AlexLiuSheng:CheckVersionLib:1.0.1_androidx'
      implementation 'com.squareup.okhttp3:okhttp:4.9.2'
      implementation 'org.greenrobot:eventbus:3.1.1'
 	}
