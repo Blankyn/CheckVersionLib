@@ -11,20 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:remove="android:requestLegacyExternalStorage">
-        <activity android:name="com.blankm.sample.v1.V1Activity">
 
-        </activity>
+        <activity android:name="com.blankm.sample.V2Activity" />
 
-        <service
-            android:name="com.blankm.sample.v1.DemoService"
-            android:enabled="true"
-            android:exported="true" />
-
-        <activity
-            android:name="com.blankm.sample.v1.CustomVersionDialogActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/versionCheckLibvtransparentTheme" />
-        <activity android:name="com.blankm.sample.v2.V2Activity" />
         <activity android:name="com.blankm.sample.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

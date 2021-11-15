@@ -4,6 +4,7 @@ package me.blankm.versionchecklib.core.http;
 import android.os.Handler;
 import android.os.Looper;
 
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,7 +15,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 /**
- * Created by allenliu on 2017/8/31.
+ * Created by admin on 2017/8/31.
  */
 
 public abstract class FileCallBack implements Callback {

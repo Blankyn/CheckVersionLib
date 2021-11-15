@@ -12,13 +12,10 @@
 
     <application
         android:allowBackup="true"
-        android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
+        android:supportsRtl="true"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name="me.blankm.versionchecklib.core.VersionDialogActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/versionCheckLibvtransparentTheme" />
+
 
         <provider
             android:name="me.blankm.versionchecklib.core.VersionFileProvider"
@@ -36,27 +33,22 @@
             android:theme="@style/versionCheckLibvtransparentTheme" />
 
         <service
-            android:name="me.blankm.versionchecklib.core.MyService"
-            android:enabled="true"
-
-            android:exported="false" />
-        <service
-            android:name="me.blankm.versionchecklib.v2.ui.VersionService"
+            android:name="me.blankm.versionchecklib.ui.VersionService"
             android:exported="false"
             android:priority="1000" />
 
         <activity
-            android:name="me.blankm.versionchecklib.v2.ui.UIActivity"
+            android:name="me.blankm.versionchecklib.ui.UIActivity"
             android:launchMode="singleTask"
             android:theme="@style/versionCheckLibvtransparentTheme" />
         <activity
-            android:name="me.blankm.versionchecklib.v2.ui.DownloadingActivity"
+            android:name="me.blankm.versionchecklib.ui.DownloadingActivity"
             android:launchMode="singleTask"
             android:theme="@style/versionCheckLibvtransparentTheme" />
         <activity
-            android:name="me.blankm.versionchecklib.v2.ui.DownloadFailedActivity"
+            android:name="me.blankm.versionchecklib.ui.DownloadFailedActivity"
             android:launchMode="singleTask"
-            android:theme="@style/versionCheckLibvtransparentTheme"></activity>
+            android:theme="@style/versionCheckLibvtransparentTheme" />
     </application>
 
 </manifest>

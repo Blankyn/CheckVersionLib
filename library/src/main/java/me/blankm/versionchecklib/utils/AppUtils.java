@@ -19,12 +19,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 
-import me.blankm.versionchecklib.core.AllenChecker;
-import me.blankm.versionchecklib.core.VersionFileProvider;
-import me.blankm.versionchecklib.v2.AllenVersionChecker;
-import me.blankm.versionchecklib.v2.callback.CustomInstallListener;
 
 import java.io.File;
+
+import me.blankm.versionchecklib.core.VersionFileProvider;
+import me.blankm.versionchecklib.AllenVersionChecker;
+import me.blankm.versionchecklib.callback.CustomInstallListener;
 
 /**
  *
@@ -52,7 +52,6 @@ public final class AppUtils {
         intent.setDataAndType(uri,
                 "application/vnd.android.package-archive");
         context.startActivity(intent);
-        AllenChecker.cancelMission();
         AllenVersionChecker.getInstance().cancelAllMission();
     }
 
@@ -74,7 +73,6 @@ public final class AppUtils {
             intent.setDataAndType(uri,
                     "application/vnd.android.package-archive");
             context.startActivity(intent);
-            AllenChecker.cancelMission();
             AllenVersionChecker.getInstance().cancelAllMission();
         }
     }

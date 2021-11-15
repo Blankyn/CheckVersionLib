@@ -1,11 +1,9 @@
-## CheckVersionLib[![](https://jitpack.io/v/AlexLiuSheng/CheckVersionLib.svg)](https://jitpack.io/#AlexLiuSheng/CheckVersionLib)
-## V2版震撼来袭，功能强大，链式编程，调用简单，集成轻松，扩展性强大
-
-老规矩先看V2效果，这个版本最大的特点就是使用非常简单，相对于1.+版本
+## CheckVersionLib
+## 功能强大，链式编程，调用简单，集成轻松，扩展性强大
 
 ### 效果
- <img src="https://github.com/AlexLiuSheng/CheckVersionLib/blob/master/gif/v2.jpg" width=200/><img src="https://github.com/AlexLiuSheng/CheckVersionLib/blob/master/gif/V2.gif" width=200/>
- 
+ <img src="gif/v2.jpg" width=200/><img src="gif/V2.gif" width=200/>
+
 ### 特点
 - [x] 任何地方都可以调用
 
@@ -23,6 +21,8 @@
 
 - [x] 适配到Android Q
 
+- [x] 支持 Referer
+
 ### 导入
 ```
 allprojects {
@@ -36,9 +36,9 @@ allprojects {
 #### jitpack && android x
 ```
 dependencies {
-	        implementation 'com.github.AlexLiuSheng:CheckVersionLib:1.0.0_androidx'
-	        implementation 'com.squareup.okhttp3:okhttp:4.9.2'
-            implementation 'org.greenrobot:eventbus:3.1.1'
+     implementation 'com.github.AlexLiuSheng:CheckVersionLib:1.0.0_androidx'
+     implementation 'com.squareup.okhttp3:okhttp:4.9.2'
+     implementation 'org.greenrobot:eventbus:3.1.1'
 	}
 ```
 
@@ -50,7 +50,7 @@ dependencies {
 
 先来个最简单的调用
 
-```
+```java
         AllenVersionChecker
                 .getInstance()
                 .downloadOnly(
@@ -66,7 +66,7 @@ dependencies {
 > 请求服务器版本+下载
 
 该模式最简单的使用
-```
+```java
    AllenVersionChecker
                 .getInstance()
                 .requestVersion()
@@ -92,7 +92,7 @@ dependencies {
 ```
 请求版本一些其他的http参数可以设置，如下
 
-```
+```java
  AllenVersionChecker
                 .getInstance()
                 .requestVersion()
@@ -127,7 +127,7 @@ dependencies {
 
 ### 合适的地方关闭任务
  为了避免不必要的内存泄漏，需要在合适的地方取消任务
- ```
+ ```java
  AllenVersionChecker.getInstance().cancelAllMission();
  ```
 
@@ -136,7 +136,7 @@ dependencies {
 
 ### 一些其他的function设置
 解释下，下面的builder叫`DownloadBuilder`
-```
+```java
  DownloadBuilder builder=AllenVersionChecker
                 .getInstance()
                 .downloadOnly();
@@ -153,35 +153,34 @@ dependencies {
 ```
 > 取消任务
 
- ```
+ ```java
   AllenVersionChecker.getInstance().cancelAllMission(this);
-
-```
+ ```
 > 静默下载
-  
-  ```
+
+  ```java
    builder.setSilentDownload(true); 默认false
   ```
 > 设置当前服务器最新的版本号，供库判断是否使用缓存
- 
+
   - 缓存策略：如果本地有安装包，首先判断与当前运行的程序的versionCode是否不一致，然后判断是否有传入最新的
     versionCode，如果传入的versionCode大于本地的，重新从服务器下载，否则使用缓存
-  
-  ```
+
+  ```java
    builder.setNewestVersionCode(int); 默认null
   ```
 > 强制更新
 
   设置此listener即代表需要强制更新，会在用户想要取消下载的时候回调
   需要你自己关闭所有界面
-  ```
+  ```java
   builder.setForceUpdateListener(() -> {
                 forceUpdate();
             });
-```    
+  ```
 **update in v2.2.1** 
    动态设置是否强制更新，如果使用本库来请求服务器，可以在回调时动态设置一些参数或者回调
-  ```
+  ```java
      public UIData onRequestVersionSuccess(DownloadBuilder downloadBuilder,String result) {
                             downloadBuilder.setForceUpdateListener(() -> {
                                 forceUpdate();
@@ -189,31 +188,31 @@ dependencies {
                             Toast.makeText(V2Activity.this, "request successful", Toast.LENGTH_SHORT).show();
                             return crateUIData();
                         }
-  ```  
+  ```
 > 下载忽略本地缓存
 
   如果本地有安装包缓存也会重新下载apk
-  
-```
+
+```java
  builder.setForceRedownload(true); 默认false
-``` 
+```
 
 > 是否显示下载对话框
-```
+```java
 builder.setShowDownloadingDialog(false); 默认true
 ```
 > 是否显示通知栏
-```
+```java
 builder.setShowNotification(false);  默认true
 ```
 > **以前台service运行（update in 2.2.2）**
 推荐以前台服务运行更新，防止在后台时，服务被杀死
-```
+```java
 builder.setRunOnForegroundService(true); 默认true
 
 ```
 > 自定义通知栏
-```
+```java
       builder.setNotificationBuilder(
                  NotificationBuilder.create()
                          .setRingtone(true)
@@ -225,21 +224,21 @@ builder.setRunOnForegroundService(true); 默认true
 ```
 > 是否显示失败对话框
 
-```
+```java
   builder.setShowDownloadFailDialog(false); 默认true
 ```
 > 自定义下载路径
 
-```
+```java
   builder.setDownloadAPKPath(address); 默认：/storage/emulated/0/AllenVersionPath/
 ```
 > 自定义下载文件名
-```
+```java
   builder.setApkName(apkName); 默认：getPackageName()
 ```
 > 可以设置下载监听
 
-```
+```java
    builder.setApkDownloadListener(new APKDownloadListener() {
              @Override
              public void onDownloading(int progress) {
@@ -259,7 +258,7 @@ builder.setRunOnForegroundService(true); 默认true
 ```
 > 设置取消监听
 此回调会监听所有cancel事件
-```
+```java
  
  builder.setOnCancelListener(() -> {
             Toast.makeText(V2Activity.this,"Cancel Hanlde",Toast.LENGTH_SHORT).show();
@@ -276,14 +275,14 @@ builder.setRunOnForegroundService(true); 默认true
 - `builder.setDownloadFailedCommitClickListener();`
 
 > 静默下载+直接安装（不会弹出升级对话框）
-```
+```java
     builder.setDirectDownload(true);
            builder.setShowNotification(false);
            builder.setShowDownloadingDialog(false);
            builder.setShowDownloadFailDialog(false);
 ```
 > 自定义安装回调
-```
+```java
     setCustomDownloadInstallListener(CustomInstallListener customDownloadInstallListener)
 ```
 
@@ -292,13 +291,13 @@ builder.setRunOnForegroundService(true); 默认true
 自定义界面使用回调方式，开发者需要返回自己定义的Dialog（父类android.app）
 
  - 所有自定义的界面必须使用listener里面的context实例化
- 
+
  - 界面展示的数据通过UIData拿
 
 > **自定义显示更新界面**
 
    设置`CustomVersionDialogListener`
-   
+
 
 - 定义此界面**必须**有一个确定下载的按钮，按钮id必须为`@id/versionchecklib_version_dialog_commit`
 
@@ -306,7 +305,7 @@ builder.setRunOnForegroundService(true); 默认true
 
 eg.
 
-```
+```java
   builder.setCustomVersionDialogListener((context, versionBundle) -> {
             BaseDialog baseDialog = new BaseDialog(context, R.style.BaseDialog, R.layout.custom_dialog_one_layout);
             //versionBundle 就是UIData，之前开发者传入的，在这里可以拿出UI数据并展示
@@ -325,7 +324,7 @@ eg.
 - 如果此界面要设计取消操作（没有忽略），请务必将id设置为`@id/versionchecklib_loading_dialog_cancel`
 
 
-```
+```java
     builder.setCustomDownloadingDialogListener(new CustomDownloadingDialogListener() {
             @Override
             public Dialog getCustomDownloadingDialog(Context context, int progress, UIData versionBundle) {
@@ -351,7 +350,7 @@ eg.
 
 - 如果有 **确认/取消**按钮请将id设置为`@id/versionchecklib_failed_dialog_cancel`
 
-```
+```java
    builder.setCustomDownloadFailedListener((context, versionBundle) -> {
             BaseDialog baseDialog = new BaseDialog(context, R.style.BaseDialog, R.layout.custom_download_failed_dialog);
             return baseDialog;
@@ -367,8 +366,8 @@ eg.
 
 
 ###  混淆配置
-```
- -keepattributes *Annotation*
+```grade
+-keepattributes *Annotation*
 -keepclassmembers class * {
     @org.greenrobot.eventbus.Subscribe <methods>;
 }
@@ -385,16 +384,26 @@ eg.
 
 ***
 
- - 更全面的使用请看 [demo](https://github.com/AlexLiuSheng/CheckVersionLib/blob/master/sample/src/main/java/com/allenliu/sample/v2/V2Activity.java)
- 
- - 感谢各位对本库的支持
- 
- - 欢迎star/issue
- 
+ - 更全面的使用请看 [demo](https://github.com/Blankyn/CheckVersionLib/blob/master/sample/src/main/java/com/blankm/sample/v2/V2Activity.java)
+ - 感谢 [`CheckVersionLib`](https://github.com/AlexLiuSheng/CheckVersionLib)
+
 
 
 ### License
 
-***
+``` 
+ Copyright 2021, blankm       
+  
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at 
+ 
+       http://www.apache.org/licenses/LICENSE-2.0 
 
-Apache 2.0
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+```
+

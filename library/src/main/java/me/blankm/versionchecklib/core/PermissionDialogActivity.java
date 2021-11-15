@@ -1,24 +1,23 @@
 package me.blankm.versionchecklib.core;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import me.blankm.versionchecklib.R;
+import me.blankm.versionchecklib.eventbus.AllenEventType;
+import me.blankm.versionchecklib.eventbus.CommonEvent;
+import me.blankm.versionchecklib.ui.AllenBaseActivity;
 
 import android.widget.Toast;
 
-import me.blankm.versionchecklib.R;
-import me.blankm.versionchecklib.v2.eventbus.AllenEventType;
-import me.blankm.versionchecklib.v2.eventbus.CommonEvent;
-import me.blankm.versionchecklib.v2.ui.AllenBaseActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
-import static me.blankm.versionchecklib.core.VersionDialogActivity.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE;
 
 public class PermissionDialogActivity extends AllenBaseActivity {
+    public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 0x123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,17 +66,12 @@ public class PermissionDialogActivity extends AllenBaseActivity {
     }
 
     private void sendBroadcast(boolean result) {
-        Intent intent = new Intent();
-        intent.setAction(AVersionService.PERMISSION_ACTION);
-        intent.putExtra("result", result);
-        sendBroadcast(intent);
         //post event
         CommonEvent commonEvent=new CommonEvent();
         commonEvent.setEventType(AllenEventType.REQUEST_PERMISSION);
         commonEvent.setSuccessful(true);
         commonEvent.setData(result);
         EventBus.getDefault().post(commonEvent);
-
         finish();
     }
 

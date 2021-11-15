@@ -1,11 +1,12 @@
 package me.blankm.versionchecklib.utils;
 
-import me.blankm.versionchecklib.v2.eventbus.CommonEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
+import me.blankm.versionchecklib.eventbus.CommonEvent;
+
 /**
- * Created by allenliu on 2018/1/18.
+ * Created by admin on 2018/1/18.
  */
 
 public class AllenEventBusUtil {
