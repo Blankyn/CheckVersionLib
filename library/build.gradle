@@ -1,0 +1,71 @@
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    resourcePrefix "versionchecklib"
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    buildTypes {
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    compileOnly 'androidx.appcompat:appcompat:1.1.0'
+    compileOnly 'com.squareup.okhttp3:okhttp:4.9.2'
+    compileOnly 'org.greenrobot:eventbus:3.1.1'
+
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            //这里release和debug的话，建议根据实际，每次只用一个，注掉另一个。
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+                from components.release
+
+                // You can then customize attributes of the publication as shown below.
+                groupId = 'me.blankm.checkversionlib'
+                artifactId = 'base'
+                version = '1.0.0'
+            }
+            // Creates a Maven publication called “debug”.
+//            debug(MavenPublication) {
+//                // Applies the component for the debug build variant.
+//                from components.debug
+//
+//                groupId = 'com.example.MyLibrary'
+//                artifactId = 'final-debug'
+//                version = '1.0'
+//            }
+        }
+    }
+}
